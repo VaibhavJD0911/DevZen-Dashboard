@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevZen — Session Reports</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/reports.css">
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="grid-bg"></div>
+
+<nav class="navbar">
+  <div class="logo">DevZen</div>
+  <ul class="nav-links">
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="reports.html" class="active">Reports</a></li>
+    <li><a href="tools.html">Tools</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+  </ul>
+  <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);" id="currentDate"></div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div>
+      <h1>Session Reports</h1>
+      <p class="sub">Performance overview — weekly snapshot</p>
+    </div>
+    <div class="date-badge" id="dateBadge">Loading...</div>
+  </div>
+</div>
+
+<!-- STATS ROW -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-label">Total Focus Time</div>
+    <div class="stat-value" style="color:var(--teal);" id="totalFocus">0<span class="stat-unit">h</span></div>
+    <div class="stat-trend" id="focusTrend">↑ this week</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Sessions Completed</div>
+    <div class="stat-value" style="color:var(--lime);" id="totalSessions">0</div>
+    <div class="stat-trend" style="color:var(--lime);">Pomodoro cycles</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Distractions</div>
+    <div class="stat-value" style="color:var(--magenta);" id="totalDistractions">0</div>
+    <div class="stat-trend" style="color:var(--muted);">tab switches</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Tasks Completed</div>
+    <div class="stat-value" style="color:var(--gold);" id="tasksCompleted">0</div>
+    <div class="stat-trend" style="color:var(--gold);">of <span id="totalTasks">0</span> total</div>
+  </div>
+</div>
+
+<!-- CHARTS SECTION -->
+<div class="charts-section">
+
+  <!-- Bar Chart -->
+  <div class="report-card">
+    <div class="report-card-header">
+      <span class="report-card-title">Weekly Focus Hours</span>
+      <span class="card-badge badge-teal">7 days</span>
+    </div>
+    <div class="week-chart" id="weekChart"></div>
+  </div>
+
+  <!-- Radial Chart -->
+  <div class="report-card">
+    <div class="report-card-header">
+      <span class="report-card-title">Time Distribution</span>
+      <span class="card-badge badge-purple">Split</span>
+    </div>
+    <div class="radial-section">
+      <div class="radial-wrap">
+        <svg width="160" height="160" viewBox="0 0 160 160">
+          <circle class="radial-track" cx="80" cy="80" r="65"/>
+          <circle class="radial-fill" cx="80" cy="80" r="65"
+            style="stroke:var(--teal);" id="radialFocus"
+            stroke-dashoffset="100"/>
+        </svg>
+        <div class="radial-center">
+          <div class="radial-pct" style="color:var(--teal);" id="radialPct">0%</div>
+          <div class="radial-label">Daily Goal</div>
+        </div>
+      </div>
+      <div class="radial-legend">
+        <div class="legend-row">
+          <span class="legend-name"><span class="legend-dot" style="background:var(--teal);"></span>Deep Focus</span>
+          <span class="legend-val" id="deepFocusVal">0h</span>
+        </div>
+        <div class="legend-row">
+          <span class="legend-name"><span class="legend-dot" style="background:var(--lime);"></span>Tasks Done</span>
+          <span class="legend-val" id="tasksVal">0</span>
+        </div>
+        <div class="legend-row">
+          <span class="legend-name"><span class="legend-dot" style="background:var(--magenta);"></span>Breaks Taken</span>
+          <span class="legend-val" id="breaksVal">0</span>
+        </div>
+        <div class="legend-row">
+          <span class="legend-name"><span class="legend-dot" style="background:var(--gold);"></span>Sessions</span>
+          <span class="legend-val" id="sessionsLegend">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SESSIONS LIST -->
+<div class="sessions-section">
+  <div class="sessions-header">
+    <h3>Recent Sessions</h3>
+  </div>
+  <div id="sessionsList"></div>
+</div>
+
+<script src="../js/reports.js"></script>
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevZen — Pricing</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/pricing.css">
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="grid-bg"></div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalBox">
+    <button class="modal-close-x" onclick="closeModal()">×</button>
+    <span class="modal-icon" id="modalIcon"></span>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-sub" id="modalSub"></div>
+    <input type="text"  class="modal-input" placeholder="Full name" id="modalName">
+    <input type="email" class="modal-input" placeholder="Email address" id="modalEmail">
+    <button class="modal-confirm" id="modalConfirm" onclick="confirmPlan()"></button>
+    <button class="modal-close-btn" onclick="closeModal()">Maybe later</button>
+  </div>
+</div>
+
+<!-- CONFETTI -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="logo" href="dashboard.html">DevZen</a>
+  <ul class="nav-links">
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="reports.html">Reports</a></li>
+    <li><a href="tools.html">Tools</a></li>
+    <li><a href="pricing.html" class="active">Pricing</a></li>
+  </ul>
+  <div id="currentPlanNav" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;"></div>
+</nav>
+
+<!-- HERO -->
+<section class="pricing-hero">
+  <div class="hero-eyebrow">
+    <span class="pulse"></span>
+    Simple, transparent pricing
+  </div>
+  <h1>
+    <span class="hero-title-line1">Build without</span>
+    <span class="hero-title-line2">limits.</span>
+  </h1>
+  <p>Choose the plan that matches your workflow.<br>Upgrade or downgrade anytime.</p>
+
+  <!-- Billing Toggle -->
+  <div class="billing-toggle">
+    <span class="billing-label active" id="labelMonthly">Monthly</span>
+    <div class="billing-switch">
+      <input type="checkbox" id="billingToggle">
+      <label class="billing-track" for="billingToggle"></label>
+    </div>
+    <span class="billing-label" id="labelAnnual">Annual</span>
+    <span class="save-pill">Save 30%</span>
+  </div>
+</section>
+
+<!-- PRICING CARDS -->
+<section class="pricing-section">
+  <div class="pricing-grid">
+
+    <!-- ── FREE ── -->
+    <div class="plan-card plan-free" id="card-free">
+      <div class="plan-accent-bar"></div>
+      <div class="plan-spacer"></div>
+
+      <div id="currentTag-free"></div>
+
+      <span class="plan-icon">🌱</span>
+      <div class="plan-name" style="color:var(--teal);">Free</div>
+      <div class="plan-tagline">Perfect for getting started.<br>No credit card required.</div>
+
+      <div class="plan-price-wrap">
+        <span class="price-currency">$</span>
+        <span class="price-amount" style="color:var(--teal);" id="price-free">0</span>
+        <span class="price-period">/ mo</span>
+      </div>
+
+      <button class="plan-cta cta-free" onclick="openModal('free')">
+        Get Started Free
+      </button>
+
+      <div class="plan-divider"></div>
+      <div class="features-title">What's included</div>
+
+      <ul class="feature-list">
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Pomodoro Timer</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Task Manager <span style="color:var(--muted);font-size:12px;">(up to 10 tasks)</span></span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Quick Notes</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Weather Widget</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">GitHub Stats</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Basic Analytics</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Tool Hub <span style="color:var(--muted);font-size:12px;">(5 tools)</span></span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-no">–</span>
+          <span class="feature-text disabled">Focus Shield (Site Blocking)</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-no">–</span>
+          <span class="feature-text disabled">Session Reports</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-no">–</span>
+          <span class="feature-text disabled">AI Assistant</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-no">–</span>
+          <span class="feature-text disabled">Priority Support</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── PRO ── -->
+    <div class="plan-card plan-pro" id="card-pro">
+      <div class="plan-accent-bar"></div>
+
+      <div class="popular-badge">
+        <span class="popular-badge-dot"></span>
+        Most Popular
+      </div>
+
+      <div id="currentTag-pro"></div>
+
+      <span class="plan-icon">⚡</span>
+      <div class="plan-name" style="color:var(--gold);">Pro</div>
+      <div class="plan-tagline">For developers who are serious<br>about deep focus.</div>
+
+      <div class="plan-price-wrap">
+        <span class="price-currency">$</span>
+        <span class="price-amount" style="color:var(--gold);" id="price-pro">12</span>
+        <span class="price-period">/ mo</span>
+        <span class="price-original" id="orig-pro">$17</span>
+      </div>
+
+      <button class="plan-cta cta-pro" onclick="openModal('pro')">
+        Start Pro Trial
+      </button>
+
+      <div class="plan-divider"></div>
+      <div class="features-title">Everything in Free, plus</div>
+
+      <ul class="feature-list">
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Unlimited Tasks</span>
+          <span class="feature-tag tag-new">New</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Focus Shield — Site Blocking</span>
+          <span class="feature-tag tag-hot">🔥</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Full Session Reports</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Advanced Analytics Dashboard</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Tool Hub <span style="color:var(--muted);font-size:12px;">(unlimited)</span></span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Custom Pomodoro Intervals</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Data Export (JSON / CSV)</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Email Support</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-no">–</span>
+          <span class="feature-text disabled">AI Focus Assistant</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-no">–</span>
+          <span class="feature-text disabled">Team Workspace</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-no">–</span>
+          <span class="feature-text disabled">White-label Dashboard</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── ELITE ── -->
+    <div class="plan-card plan-elite" id="card-elite">
+      <div class="plan-accent-bar"></div>
+      <div class="plan-spacer"></div>
+
+      <div id="currentTag-elite"></div>
+
+      <span class="plan-icon">👑</span>
+      <div class="plan-name" style="color:var(--purple);">Elite</div>
+      <div class="plan-tagline">For teams and power users who<br>want every edge possible.</div>
+
+      <div class="plan-price-wrap">
+        <span class="price-currency">$</span>
+        <span class="price-amount" style="color:var(--purple);" id="price-elite">29</span>
+        <span class="price-period">/ mo</span>
+        <span class="price-original" id="orig-elite">$41</span>
+      </div>
+
+      <button class="plan-cta cta-elite" onclick="openModal('elite')">
+        Go Elite
+      </button>
+
+      <div class="plan-divider"></div>
+      <div class="features-title">Everything in Pro, plus</div>
+
+      <ul class="feature-list">
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">AI Focus Assistant</span>
+          <span class="feature-tag tag-elite">Elite</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Team Workspace <span style="color:var(--muted);font-size:12px;">(up to 10)</span></span>
+          <span class="feature-tag tag-elite">Elite</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">White-label Dashboard</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Productivity Reports PDF Export</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Custom Themes & Branding</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">API Access</span>
+          <span class="feature-tag tag-new">New</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Advanced Distraction Insights</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Integrations: Notion, Jira, Slack</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Calendar Sync</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Priority 24/7 Support</span>
+        </li>
+        <li class="feature-item">
+          <span class="feature-check check-yes">✓</span>
+          <span class="feature-text">Early Access to New Features</span>
+          <span class="feature-tag tag-hot">🔥</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="comparison-section" style="padding: 0 36px 80px;">
+  <div class="section-label">
+    <h2>Full Comparison</h2>
+    <p>Every feature, side by side</p>
+  </div>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th style="width:40%;">Feature</th>
+        <th class="th-free">Free</th>
+        <th class="th-pro">Pro</th>
+        <th class="th-elite">Elite</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Pomodoro Timer</td>
+        <td class="check-cell check-y">✓</td>
+        <td class="check-cell check-y td-pro">✓</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>Task Manager</td>
+        <td class="check-partial">10 tasks</td>
+        <td class="check-partial td-pro">Unlimited</td>
+        <td class="check-partial">Unlimited</td>
+      </tr>
+      <tr>
+        <td>Quick Notes</td>
+        <td class="check-cell check-y">✓</td>
+        <td class="check-cell check-y td-pro">✓</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>Weather Widget</td>
+        <td class="check-cell check-y">✓</td>
+        <td class="check-cell check-y td-pro">✓</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>GitHub Stats</td>
+        <td class="check-cell check-y">✓</td>
+        <td class="check-cell check-y td-pro">✓</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>Tool Hub</td>
+        <td class="check-partial">5 tools</td>
+        <td class="check-partial td-pro">Unlimited</td>
+        <td class="check-partial">Unlimited</td>
+      </tr>
+      <tr>
+        <td>Focus Shield (Site Blocking)</td>
+        <td class="check-cell check-n">–</td>
+        <td class="check-cell check-y td-pro">✓</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>Session Reports</td>
+        <td class="check-cell check-n">–</td>
+        <td class="check-cell check-y td-pro">✓</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>Advanced Analytics</td>
+        <td class="check-cell check-n">–</td>
+        <td class="check-cell check-y td-pro">✓</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>Data Export</td>
+        <td class="check-cell check-n">–</td>
+        <td class="check-cell check-y td-pro">✓</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>AI Focus Assistant</td>
+        <td class="check-cell check-n">–</td>
+        <td class="check-cell check-n td-pro">–</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>Team Workspace</td>
+        <td class="check-cell check-n">–</td>
+        <td class="check-cell check-n td-pro">–</td>
+        <td class="check-partial">Up to 10</td>
+      </tr>
+      <tr>
+        <td>API Access</td>
+        <td class="check-cell check-n">–</td>
+        <td class="check-cell check-n td-pro">–</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>White-label Dashboard</td>
+        <td class="check-cell check-n">–</td>
+        <td class="check-cell check-n td-pro">–</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>Integrations (Notion, Jira, Slack)</td>
+        <td class="check-cell check-n">–</td>
+        <td class="check-cell check-n td-pro">–</td>
+        <td class="check-cell check-y">✓</td>
+      </tr>
+      <tr>
+        <td>Support</td>
+        <td class="check-partial">Community</td>
+        <td class="check-partial td-pro">Email</td>
+        <td class="check-partial">24/7 Priority</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-label">
+    <h2>Frequently Asked</h2>
+    <p>Got questions? We have answers.</p>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      Can I switch plans anytime?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">Yes, absolutely. You can upgrade, downgrade, or cancel at any time from your account settings. When upgrading, the new features activate immediately. When downgrading, you keep your current tier until the end of the billing cycle.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      Is the Free plan really free forever?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">Yes — the Free plan has no time limit and no credit card required. You get the core DevZen experience at zero cost. We believe every developer deserves great productivity tools regardless of budget.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      What payment methods do you accept?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">We accept all major credit and debit cards (Visa, Mastercard, Amex), PayPal, and for annual plans we also support bank transfers. All payments are secured via Stripe with end-to-end encryption.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      How does the annual discount work?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">When you switch to annual billing, you get 30% off the monthly price — equivalent to getting 3.6 months free. The discount is applied immediately and you're billed once per year instead of monthly.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      Can I use DevZen for my team?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">The Elite plan includes a Team Workspace for up to 10 members. Each member gets their own personal dashboard while sharing team analytics and reports. For larger teams, contact us for an Enterprise quote.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      What does the Focus Shield actually do?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">Focus Shield lets you block any website domain during work sessions. When you try to visit a blocked site, DevZen intercepts it and shows a focus reminder instead of letting the distraction through. Blocked lists are fully customizable.</div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>Ready to build consistently?</h2>
+  <p>Join thousands of developers already using DevZen</p>
+  <div class="cta-btns">
+    <button class="cta-primary" onclick="openModal('pro')">Start Pro — $12 / mo</button>
+    <button class="cta-secondary" onclick="openModal('free')">Try Free First</button>
+  </div>
+</div>
+
+<script src="../js/pricing.js"></script>
+</body>
+</html>

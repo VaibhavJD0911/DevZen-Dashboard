@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevZen — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="grid-bg"></div>
+
+<!-- Distraction alert -->
+<div class="distraction-alert" id="distractionAlert">
+  <p>⚠ Stay focused! You left the session.</p>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">DevZen</div>
+
+  <ul class="nav-links">
+    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+    <li><a href="reports.html">Reports</a></li>
+    <li><a href="tools.html">Tools</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+  </ul>
+
+  <div class="nav-user">
+    <span id="username">Developer</span>
+    <div class="user-avatar" id="userAvatar">DV</div>
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</nav>
+
+<!-- FOCUS BANNER -->
+<section class="focus-banner" id="focusBanner">
+  <div class="focus-banner-left">
+    <h2>Deep Focus Mode</h2>
+    <p>Select duration & initialize session</p>
+  </div>
+  <div class="focus-controls">
+    <select class="focus-select" id="sessionTime">
+      <option value="30">30 Minutes</option>
+      <option value="60">1 Hour</option>
+      <option value="120">2 Hours</option>
+      <option value="240">4 Hours</option>
+    </select>
+    <button class="start-btn" id="startSession">⚡ Start Session</button>
+  </div>
+</section>
+
+<!-- DASHBOARD GRID -->
+<main class="dashboard">
+
+  <!-- Pomodoro Timer -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Pomodoro</span>
+      <span class="card-badge badge-teal" id="timerStatus">IDLE</span>
+    </div>
+    <div class="timer-ring">
+      <svg width="160" height="160" viewBox="0 0 160 160">
+        <circle class="track" cx="80" cy="80" r="65"/>
+        <circle class="progress" cx="80" cy="80" r="65" id="timerProgress"/>
+      </svg>
+      <div class="timer-center">
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        <div class="timer-label" id="timerPhase">Focus</div>
+      </div>
+    </div>
+    <div class="timer-btns">
+      <button class="btn-start" id="startBtn">▶ Start</button>
+      <button class="btn-reset" id="resetBtn">↺ Reset</button>
+    </div>
+  </div>
+
+  <!-- Task Manager -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Task Board</span>
+      <span class="card-badge badge-lime" id="taskCount">0 tasks</span>
+    </div>
+    <div class="task-input-row">
+      <input type="text" class="dz-input" id="taskInput" placeholder="Add a task...">
+      <button class="add-btn" id="addTaskBtn">+</button>
+    </div>
+    <ul class="task-list" id="taskList"></ul>
+  </div>
+
+  <!-- Quick Notes -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Quick Notes</span>
+      <span class="card-badge badge-gold">Markdown</span>
+    </div>
+    <textarea class="notes-textarea" id="notesArea" placeholder="// your thoughts here..."></textarea>
+    <div class="notes-footer">
+      <span class="char-count" id="charCount">0 chars</span>
+      <button class="save-note-btn" id="saveNote">Save Note</button>
+    </div>
+  </div>
+
+  <!-- Weather -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Weather</span>
+      <span class="card-badge badge-teal">Live</span>
+    </div>
+    <div class="weather-input-row">
+      <input type="text" class="dz-input" id="cityInput" placeholder="City name...">
+      <button class="fetch-btn" id="getWeather">Fetch</button>
+    </div>
+    <div class="weather-result" id="weatherResult">
+      <span style="font-size:11px;letter-spacing:2px;">ENTER CITY TO LOAD</span>
+    </div>
+  </div>
+
+  <!-- GitHub Stats -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">GitHub Stats</span>
+      <span class="card-badge badge-magenta">API</span>
+    </div>
+    <div class="task-input-row" style="margin-bottom:16px;">
+      <input type="text" class="dz-input" id="githubUser" placeholder="username...">
+      <button class="fetch-btn" style="border-color:rgba(255,45,120,0.25);color:var(--magenta);background:var(--magenta-dim);" id="fetchGithub">Fetch</button>
+    </div>
+    <div class="github-result" id="githubResult">
+      <span style="font-size:11px;letter-spacing:2px;">ENTER USERNAME</span>
+    </div>
+  </div>
+
+  <!-- Focus Analytics -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Analytics</span>
+      <span class="card-badge badge-purple">Today</span>
+    </div>
+    <div class="analytics-grid">
+      <div class="analytics-stat">
+        <div class="analytics-val" style="color:var(--teal);" id="focusTime">0h</div>
+        <div class="analytics-key">Focus</div>
+      </div>
+      <div class="analytics-stat">
+        <div class="analytics-val" style="color:var(--lime);" id="sessionCount">0</div>
+        <div class="analytics-key">Sessions</div>
+      </div>
+      <div class="analytics-stat">
+        <div class="analytics-val" style="color:var(--magenta);" id="distractionCount">0</div>
+        <div class="analytics-key">Breaks</div>
+      </div>
+    </div>
+    <div class="analytics-bar">
+      <div class="analytics-bar-fill" id="focusBar"></div>
+    </div>
+    <div class="analytics-label">
+      <span>Daily goal progress</span>
+      <span id="focusPercent">0%</span>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/script.js"></script>
+</body>
+</html>

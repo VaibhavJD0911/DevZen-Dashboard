@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevZen — Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tools.css">
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="grid-bg"></div>
+
+<!-- BLOCKED SITE OVERLAY -->
+<div class="blocked-overlay" id="blockedOverlay">
+  <div class="blocked-icon">🛡️</div>
+  <div class="blocked-title">Site Blocked</div>
+  <div class="blocked-domain" id="blockedDomainLabel"></div>
+  <div class="blocked-msg">Focus mode is active — stay in the zone</div>
+  <button class="blocked-close" onclick="closeBlockedOverlay()">← Go Back</button>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo" onclick="window.location.href='dashboard.html'">DevZen</div>
+  <ul class="nav-links">
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="reports.html">Reports</a></li>
+    <li><a href="tools.html" class="active">Tools</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+  </ul>
+  <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;" id="focusStatusNav"></div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-left">
+    <h1>Tool Hub</h1>
+    <p class="sub">Manage your workspace · Block distractions</p>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="tools-layout">
+
+  <!-- LEFT: Tool Library -->
+  <div class="tools-left">
+
+    <!-- Add Tool Form -->
+    <div class="add-tool-card">
+      <div class="section-head" style="margin-bottom:20px;">
+        <div class="section-title">
+          <span class="dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple);"></span>
+          Add New Tool
+        </div>
+        <span class="card-badge badge-purple">Manual</span>
+      </div>
+
+      <div class="form-row">
+        <div class="field-wrap">
+          <label class="field-label">Tool Name</label>
+          <input type="text" class="dz-input" id="toolName" placeholder="e.g. ChatGPT">
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Website URL</label>
+          <input type="text" class="dz-input" id="toolUrl" placeholder="https://chat.openai.com">
+        </div>
+      </div>
+
+      <div class="form-row-3">
+        <div class="field-wrap">
+          <label class="field-label">Category</label>
+          <select class="dz-select" id="toolCategory">
+            <option value="ai">🤖 AI Tools</option>
+            <option value="productivity">⚡ Productivity</option>
+            <option value="docs">📚 Docs / Reference</option>
+            <option value="dev">💻 Dev Tools</option>
+            <option value="media">🎬 Media</option>
+            <option value="other">🔗 Other</option>
+          </select>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Icon Emoji</label>
+          <input type="text" class="dz-input" id="toolEmoji" placeholder="🤖" maxlength="4">
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Description</label>
+          <input type="text" class="dz-input" id="toolDesc" placeholder="Optional note...">
+        </div>
+      </div>
+
+      <button class="add-tool-btn" id="addToolBtn">+ Add to Library</button>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-tab active" data-cat="all">All</button>
+      <button class="filter-tab" data-cat="ai">🤖 AI</button>
+      <button class="filter-tab" data-cat="productivity">⚡ Productivity</button>
+      <button class="filter-tab" data-cat="docs">📚 Docs</button>
+      <button class="filter-tab" data-cat="dev">💻 Dev</button>
+      <button class="filter-tab" data-cat="media">🎬 Media</button>
+      <button class="filter-tab" data-cat="other">🔗 Other</button>
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="section-head">
+      <div class="section-title">
+        <span class="dot" style="background:var(--teal);box-shadow:0 0 6px var(--teal);"></span>
+        Your Library
+      </div>
+      <span class="card-badge badge-teal" id="toolCountBadge">0 tools</span>
+    </div>
+
+    <div class="tools-grid" id="toolsGrid"></div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+
+    <!-- Block Websites -->
+    <div class="block-card">
+      <div class="section-head" style="margin-bottom:18px;">
+        <div class="section-title">
+          <span class="dot" style="background:var(--magenta);box-shadow:0 0 6px var(--magenta);"></span>
+          Block Sites
+        </div>
+        <span class="card-badge badge-magenta">Focus Shield</span>
+      </div>
+
+      <!-- Focus Mode Toggle -->
+      <div class="focus-mode-row">
+        <div class="focus-mode-info">
+          <div class="focus-mode-label">Focus Mode</div>
+          <div class="focus-mode-sub" id="focusModeSubtext">Blocking inactive</div>
+        </div>
+        <div class="toggle-wrap">
+          <input type="checkbox" class="toggle-input" id="focusModeToggle">
+          <label class="toggle-slider" for="focusModeToggle"></label>
+        </div>
+      </div>
+
+      <!-- Active badge -->
+      <div class="focus-active-badge" id="focusActiveBadge">
+        <span>🛡️</span>
+        <span>Focus Shield Active</span>
+      </div>
+
+      <!-- Add block input -->
+      <div class="block-input-row">
+        <input type="text" class="dz-input" id="blockInput" placeholder="youtube.com">
+        <button class="add-block-btn" id="addBlockBtn" title="Block site">🚫</button>
+      </div>
+
+      <!-- Blocked list -->
+      <div class="section-title" style="margin-bottom:10px;">
+        <span style="font-size:10px;letter-spacing:2px;color:var(--muted);font-family:'Space Mono',monospace;text-transform:uppercase;">Blocked Domains</span>
+      </div>
+      <div class="block-list" id="blockList"></div>
+    </div>
+
+    <!-- Quick Launch -->
+    <div class="quick-launch-card">
+      <div class="section-head" style="margin-bottom:16px;">
+        <div class="section-title">
+          <span class="dot" style="background:var(--lime);box-shadow:0 0 6px var(--lime);"></span>
+          Quick Launch
+        </div>
+        <span class="card-badge badge-lime" id="quickCount">0</span>
+      </div>
+      <div class="quick-launch-list" id="quickLaunchList"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/tools.js"></script>
+</body>
+</html>
