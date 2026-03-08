@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevZen — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<div class="bg-mesh"></div>
+<div class="grid-bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="scanlines"></div>
+<canvas id="particles"></canvas>
+
+<div class="version-tag">v2.0.87 — NEURAL</div>
+
+<div class="container">
+
+  <div class="logo-row">
+    <div class="brand">DevZen</div>
+    <div class="tagline">Developer Productivity OS</div>
+  </div>
+
+  <div class="login-card">
+    <div class="card-header">
+      <h2>Welcome back</h2>
+      <p>Authenticate to access workspace</p>
+    </div>
+
+    <form action="pages/dashboard.html" onsubmit="return handleLogin(event)">
+      <div class="field">
+        <label>Username</label>
+        <div class="field-input-wrap">
+          <input type="text" placeholder="your_handle" required id="loginUser">
+          <div class="field-icon">⌘</div>
+          <div class="status-dot" id="userDot"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <div class="field-input-wrap">
+          <input type="password" placeholder="••••••••••••" required id="loginPass">
+          <div class="field-icon">◈</div>
+          <div class="status-dot" id="passDot"></div>
+        </div>
+      </div>
+
+      <button class="login-btn" type="submit" id="loginBtnEl">
+        <span id="btnText">Initialize Session</span>
+      </button>
+    </form>
+
+    <div class="divider"><span>system</span></div>
+
+    <div class="sys-status">
+      <div class="pulse-dot"></div>
+      All systems operational
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <span>Stay focused.</span> Build consistently.
+  </div>
+
+</div>
+
+<script src="js/login.js"></script>
+</body>
+</html>
